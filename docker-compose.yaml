@@ -1,0 +1,68 @@
+
+version: "3"
+services:
+  base-db:
+    image: postgres:15.0-alpine
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD", "psql", "-U", "newsletter", "-w", "-c", "SELECT 1;" ]
+      timeout: 0.5s
+      interval: 0.5s
+      retries: 100
+    profiles:
+      - donotstart
+
+  app-db:
+    extends:
+      service: base-db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    env_file:
+      - './.env'
+    profiles:
+      - app
+
+  base-app:
+    platform: linux/amd64
+    build:
+      dockerfile: ./devops/Dockerfile
+      target: app
+    volumes:
+      - ./newsletter:/app/newsletter
+    restart: on-failure
+    profiles:
+      - donotstart
+
+  newsletter:
+    extends:
+      service: base-app
+    command: ["/bin/sh", "-c", "python -m newsletter.main"]
+    depends_on:
+      - app-db
+    env_file:
+      - ./.env
+    profiles:
+      - app
+
+  newsletter-dramatiq:
+    extends:
+      service: base-app
+    command: ['/bin/sh','-c','dramatiq newsletter.infrastructure.dramatiq.tasks']
+    depends_on:
+      - app-db
+    env_file:
+      - ./.env
+    volumes:
+      - ./newsletter:/app/newsletter
+      - ./tests:/app/tests
+    profiles:
+      - app
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    profiles:
+      - app
+

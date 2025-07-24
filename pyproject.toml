@@ -1,0 +1,99 @@
+[project]
+name = "newsletter"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.16.1",
+    "dramatiq[redis,watch]>=1.18.0",
+    "psycopg[binary,pool]>=3.2.9",
+    "pydantic-settings>=2.9.1",
+    "sqlalchemy>=2.0.41",
+    "aiogram>=3.21.0", 
+    "fastapi>=0.115.12",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.16.0",
+    "pylint>=3.3.7",
+    "ruff>=0.11.12",
+]
+test = [
+    "coverage>=7.8.2",
+    "pytest>=8.4.0",
+    "pytest-asyncio>=1.0.0",
+]
+
+
+[tool.ruff]
+exclude = [
+    ".git",
+    "migrations",
+]
+line-length = 88
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+    "I",  # isort
+    "F",  # pyflakes
+    "E",  # pycodestyle Error
+    "W",  # pycodestyle Warning
+    "B",  # flake8-bugbear
+    "N",  # pep8-naming
+    "UP",  # pyupgrade
+    "C4",  # flake8-comprehensions
+    "TID252",  # Prefer absolute imports over relative imports from parent modules
+    "DTZ",  # flake8-datetimez
+    "DJ",  # flake8-django
+]
+ignore = [
+    "E501",  # Line too long
+    "DJ001",  # Avoid using null=True on string-based fields such as {field_name}
+    "DJ006",  # Do not use exclude with ModelForm, use fields instead
+    "DJ007",  # Do not use __all__ with ModelForm, use fields instead
+]
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]
+explicit_package_bases = true
+exclude = ["/migrations/versions/.*\\.py", "tg_logger\\.py"]
+
+[tool.pylint.master]
+ignore = ["CVS", "env", "tests", "migrations", "admin"]
+extension-pkg-whitelist = ["ujson"]
+
+[tool.pylint.messages_control]
+max-line-length = 88
+disable = [
+    "simplifiable-if-expression",
+    "invalid-name",
+    "missing-docstring",
+    "empty-docstring",
+    "line-too-long",
+    "too-many-lines",
+    "trailing-whitespace",
+    "missing-final-newline",
+    "multiple-statements",
+    "superfluous-parens",
+    "init-is-generator",
+    "return-in-init",
+    "not-in-loop",
+    "return-outside-function",
+    "yield-outside-function",
+    "nonexistent-operator",
+    "no-self-use",
+    "duplicate-code",
+    "too-many-return-statements",
+    "too-many-branches",
+    "too-many-arguments",
+    "unreachable",
+    "unnecessary-pass",
+    "exec-used",
+    "anomalous-backslash-in-string",
+]

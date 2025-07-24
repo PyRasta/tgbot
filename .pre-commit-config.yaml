@@ -1,0 +1,43 @@
+default_language_version:
+  python: default
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-json
+      - id: check-yaml
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        exclude: (^tests/)|(.*/migrations/versions/.*\.py$)|(.*/tg_logger\.py)
+        entry: uv run mypy
+        language: system
+        types:
+          - python
+        require_serial: true
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff-check
+        entry: uv run ruff check
+        language: system
+        types:
+          - python
+        require_serial: true
+        args:
+          - --fix
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff-format
+        entry: uv run ruff format
+        language: system
+        types_or:
+          - python
+          - pyi
+        args:
+          - --force-exclude
+        require_serial: true
