@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Any
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Text, JSON, String
+
+from sqlalchemy import JSON, Boolean, DateTime, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from newsletter.infrastructure.db.models.base import ModelBase

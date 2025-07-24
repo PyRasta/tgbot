@@ -1,8 +1,9 @@
-from aiogram import Router, F
-from aiogram.filters import CommandStart
+import logging
+
+from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
-from aiogram.fsm.state import StatesGroup, State
 
 from newsletter.application.newsletters.controllers import CreateNewsletterController
 from newsletter.domain.newsletters.models import Newsletter
@@ -11,19 +12,13 @@ from newsletter.infrastructure.dramatiq.tasks import send_newsletter
 from newsletter.infrastructure.tg_bot.constants import CallbackDataEnum
 from newsletter.infrastructure.tg_bot.dependencies import use_db_session
 from newsletter.infrastructure.tg_bot.keyboards import (
-    admin_keyboard,
     get_keyboard,
-    moderator_keyboard,
     save_and_send_newsletter_keyboard,
 )
-from datetime import datetime
-
 from newsletter.infrastructure.tg_bot.newsletters.dependencies import (
     use_newsletters_storage,
 )
 from newsletter.utils.datetime import get_datetime_now
-import logging
-
 
 newsletters_router = Router()
 logger = logging.getLogger(__name__)

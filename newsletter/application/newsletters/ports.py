@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from newsletter.domain.newsletters.models import Newsletter, SentNewsletter
 from newsletter.domain.users.models import User
 

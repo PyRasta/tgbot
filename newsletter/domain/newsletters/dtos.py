@@ -1,7 +1,9 @@
-from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from newsletter.domain.users.models import User
 from typing import Any
+
+from pydantic import BaseModel
+
+from newsletter.domain.users.models import User
 
 
 class NewsletterDTO(BaseModel):

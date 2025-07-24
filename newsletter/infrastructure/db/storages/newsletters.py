@@ -1,7 +1,7 @@
 from pydantic import TypeAdapter
-from sqlalchemy import insert, select, update
-from sqlalchemy.orm import selectinload
+from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from newsletter.application.newsletters.ports import (
     NewslettersStoragePort,

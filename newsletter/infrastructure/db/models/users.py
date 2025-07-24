@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.sql import expression
-from sqlalchemy.types import String, Enum, BigInteger
+from sqlalchemy.types import BigInteger, Enum
 
 from newsletter.domain.users.constants import RolesEnum
 from newsletter.infrastructure.db.models.base import ModelBase

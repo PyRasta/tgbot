@@ -1,6 +1,8 @@
 from typing import Annotated
+
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from newsletter.application.users.controllers import CreateUserController
 from newsletter.application.users.ports import UsersStoragePort
 from newsletter.infrastructure.db.storages.users import AlchemyUsersStorage

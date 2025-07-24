@@ -2,23 +2,20 @@ from typing import Annotated
 
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from newsletter.application.users.ports import UsersStoragePort
+
+from newsletter.application.newsletters.controllers import (
+    CreateSentNewsletterController,
+    GetNewsletterController,
+)
 from newsletter.application.newsletters.ports import (
     NewslettersStoragePort,
     SentNewslettersStoragePort,
-    NewslettersSenderPort,
 )
-from newsletter.infrastructure.tg_bot.dependencies import use_db_session
-from newsletter.infrastructure.tg_bot.users.dependencies import use_users_storage
 from newsletter.infrastructure.db.storages.newsletters import (
     AlchemyNewslettersStorage,
     AlchemySentNewslettersStorage,
 )
-from newsletter.application.newsletters.controllers import (
-    CreateNewsletterController,
-    CreateSentNewsletterController,
-    GetNewsletterController,
-)
+from newsletter.infrastructure.tg_bot.dependencies import use_db_session
 
 
 def use_newsletters_storage(

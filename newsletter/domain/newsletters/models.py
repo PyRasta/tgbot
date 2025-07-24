@@ -1,6 +1,8 @@
-from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Any
+
+from pydantic import BaseModel, ConfigDict
+
 from newsletter.domain.users.models import User
 
 

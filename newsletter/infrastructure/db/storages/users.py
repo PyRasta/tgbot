@@ -1,11 +1,12 @@
 from pydantic import TypeAdapter
 from sqlalchemy import insert, select, update
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from newsletter.application.users.ports import UsersStoragePort
 from newsletter.domain.users.constants import RolesEnum
 from newsletter.domain.users.exceptions import UserNotFoundError
 from newsletter.domain.users.models import User
 from newsletter.infrastructure.db.models.users import DatabaseUser
-from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class AlchemyUsersStorage(UsersStoragePort):

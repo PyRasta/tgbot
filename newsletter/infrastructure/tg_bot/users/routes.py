@@ -13,7 +13,6 @@ from newsletter.infrastructure.tg_bot.keyboards import (
     moderator_keyboard,
 )
 
-
 users_router = Router()
 
 
