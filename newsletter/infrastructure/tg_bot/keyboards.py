@@ -1,8 +1,8 @@
 from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from newsletter.infrastructure.tg_bot.constants import CallbackDataEnum
 from newsletter.domain.users.constants import RolesEnum
+from newsletter.infrastructure.tg_bot.constants import CallbackDataEnum
 
 
 def moderator_keyboard() -> InlineKeyboardMarkup:

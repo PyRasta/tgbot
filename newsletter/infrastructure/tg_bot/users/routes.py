@@ -1,12 +1,16 @@
 import logging
-from aiogram import Router
+
+from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
-from aiogram import F
 
-from newsletter.application.users.controllers import ChangeRoleForUserController, CreateUserController, GetUsersController
+from newsletter.application.users.controllers import (
+    ChangeRoleForUserController,
+    CreateUserController,
+    GetUsersController,
+)
 from newsletter.domain.users.constants import RolesEnum
 from newsletter.domain.users.models import User
 from newsletter.infrastructure.db.storages.users import AlchemyUsersStorage
@@ -64,11 +68,11 @@ async def get_user_id(message: Message, state: FSMContext):
     await state.update_data(user_id=message.text)
     await state.set_state(ChangeRoleStates.role)
     await message.bot.edit_message_text(
-        text=f"Выберите роль",
+        text="Выберите роль",
         chat_id=message.chat.id,
         message_id=main_message_id,
         reply_markup=get_select_role_keyboard()
-    ) 
+    )
 
 @users_router.callback_query(F.data.startswith("role_"), ChangeRoleStates.role)
 async def set_user_role(callback: CallbackQuery, state: FSMContext):
