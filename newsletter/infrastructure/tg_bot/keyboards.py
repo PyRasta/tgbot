@@ -2,6 +2,7 @@ from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from newsletter.infrastructure.tg_bot.constants import CallbackDataEnum
+from newsletter.domain.users.constants import RolesEnum
 
 
 def moderator_keyboard() -> InlineKeyboardMarkup:
@@ -43,4 +44,17 @@ def get_keyboard(text: str | None, url: str | None) -> InlineKeyboardMarkup | No
 
     keyboard = InlineKeyboardBuilder()
     keyboard.button(text=text, url=url)
+    return keyboard.as_markup()
+
+
+def get_manage_users_keyboard() -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardBuilder()
+    keyboard.button(text="Сменить роль", callback_data=CallbackDataEnum.CHANGE_ROLE.value)
+    return keyboard.as_markup()
+
+def get_select_role_keyboard() -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardBuilder()
+    for role in RolesEnum:
+        keyboard.button(text=role.value, callback_data=f"role_{role.value}")
+
     return keyboard.as_markup()

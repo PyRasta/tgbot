@@ -7,7 +7,9 @@ from newsletter.core.config import settings
 from newsletter.infrastructure.tg_bot.bot import bot
 from newsletter.infrastructure.tg_bot.newsletters.routes import newsletters_router
 from newsletter.infrastructure.tg_bot.users.routes import users_router
+from newsletter.utils.logging import setup_logging
 
+setup_logging()
 
 async def main():
     dp = Dispatcher(storage=RedisStorage.from_url(settings.REDIS_URL))
